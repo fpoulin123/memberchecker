@@ -2,6 +2,7 @@ package memberchecker;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Properties;
 
 public class DBConnector {
 	
@@ -12,7 +13,7 @@ public class DBConnector {
 	      try {
 	         Class.forName("org.postgresql.Driver");
 	         c = DriverManager
-	            .getConnection("jdbc:postgresql://localhost:5432/business-mgr",
+	            .getConnection("jdbc:postgresql://localhost:5433/businessmgr",
 	            "postgres", "postgres");
 	      } catch (Exception e) {
 	         e.printStackTrace();
