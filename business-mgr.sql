@@ -98,5 +98,44 @@ CREATE OR REPLACE VIEW public.valid_subscription_view
 ALTER TABLE public.valid_subscription_view
     OWNER TO postgres;
 
+CREATE SEQUENCE IF NOT EXISTS public.alldata_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
 
+CREATE TABLE IF NOT EXISTS public.alldata
+(
+    id bigint NOT NULL DEFAULT nextval('alldata_id_seq'::regclass),
+    firstname character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    lastname character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    address character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    city character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    phonenumber character varying(50) COLLATE pg_catalog."default",
+    course character varying(255),
+	inscriptionDate date,
+	duration integer,
+	amount double precision,
+	account1 double precision,
+	solde1 double precision, 
+	account2 double precision, 
+	solde2 double precision, 
+	accompte3 double precision, 
+	solde3 double precision,
+	soldItems character varying(255),
+	Eeail character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT alldata_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.alldata
+    OWNER to postgres; 
+
+ALTER SEQUENCE public.alldata_id_seq
+    OWNED BY public.alldata.id;
+
+ALTER SEQUENCE public.alldata_id_seq
+    OWNER TO postgres;
 
