@@ -138,4 +138,3 @@ ALTER SEQUENCE public.alldata_id_seq
 
 ALTER SEQUENCE public.alldata_id_seq
     OWNER TO postgres;
-
