@@ -13,7 +13,7 @@ public class DBConnector {
 	      try {
 	         Class.forName("org.postgresql.Driver");
 	         c = DriverManager
-	            .getConnection("jdbc:postgresql://localhost:5433/businessmgr",
+	            .getConnection("jdbc:postgresql://localhost:5432/business-mgr",
 	            "postgres", "postgres");
 	      } catch (Exception e) {
 	         e.printStackTrace();

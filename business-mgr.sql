@@ -121,10 +121,10 @@ CREATE TABLE IF NOT EXISTS public.alldata
 	solde1 double precision, 
 	account2 double precision, 
 	solde2 double precision, 
-	accompte3 double precision, 
+	account3 double precision, 
 	solde3 double precision,
 	soldItems character varying(255),
-	Eeail character varying(100) COLLATE pg_catalog."default",
+	email character varying(100) COLLATE pg_catalog."default",
     CONSTRAINT alldata_pkey PRIMARY KEY (id)
 )
 
