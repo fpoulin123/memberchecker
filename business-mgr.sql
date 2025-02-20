@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS public.customer
     lastname character varying(255) COLLATE pg_catalog."default" NOT NULL,
     address character varying(255) COLLATE pg_catalog."default" NOT NULL,
     city character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    phonenumber character varying(20) COLLATE pg_catalog."default",
+    phonenumber character varying(50) COLLATE pg_catalog."default",
     picture character varying(255) COLLATE pg_catalog."default",
     barcodevalue character varying(50) COLLATE pg_catalog."default",
     email character varying(100) COLLATE pg_catalog."default",
@@ -137,4 +137,42 @@ ALTER SEQUENCE public.alldata_id_seq
     OWNED BY public.alldata.id;
 
 ALTER SEQUENCE public.alldata_id_seq
+    OWNER TO postgres;
+    
+CREATE OR REPLACE FUNCTION public.isvalidsubscription(
+	subscriptiondate date,
+	duration integer)
+    RETURNS boolean
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+
+DECLARE expirationdate date;
+BEGIN
+	expirationdate = subscriptiondate + duration;
+
+	RETURN expirationdate > now();
+
+END;
+$BODY$;
+
+ALTER FUNCTION public.isvalidsubscription(date, integer)
+    OWNER TO postgres;
+    
+    
+CREATE OR REPLACE VIEW public.valid_subscription_view
+ AS
+ SELECT id,
+    customer_id,
+    duration,
+    taekwondo,
+    kickboxing,
+    taekibodo,
+    amount,
+    subscription_date
+   FROM subscription s
+  WHERE isvalidsubscription(subscription_date, duration) IS TRUE;
+
+ALTER TABLE public.valid_subscription_view
     OWNER TO postgres;
